@@ -1,25 +1,24 @@
 package com.turisco.learning.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(of = {"nome", "especie"})
 @Entity
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Nome não pode ser vazio ou nulo")
     @Column(nullable = false)
-    private String nome;
+    private String name;
 
-    @NotBlank(message = "Espécie não pode ser vazia ou nula")
     @Column(nullable = false)
-    private String especie;
+    private String specie;
 }

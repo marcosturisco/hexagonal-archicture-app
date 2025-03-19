@@ -1,5 +1,6 @@
 package com.turisco.learning.controller;
 
+import com.turisco.learning.dto.AnimalDTO;
 import com.turisco.learning.model.Animal;
 import com.turisco.learning.repository.AnimalRepository;
 import jakarta.validation.Valid;
@@ -14,29 +15,28 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/animais")
+@RequestMapping("/animals")
 public class AnimalController {
 
-    private static final org.slf4j.Logger LOGGER
-            = org.slf4j.LoggerFactory.getLogger(AnimalController.class);
-
+    private final AnimalMapper mapper;
     private final AnimalRepository repository;
 
-    public AnimalController(AnimalRepository repository) {
+    public AnimalController(AnimalMapper mapper, AnimalRepository repository) {
+        this.mapper = mapper;
         this.repository = repository;
     }
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> listarTodos() {
-        List<Animal> animais = repository.findAll();
+    public ResponseEntity<Map<String, Object>> exposeAllAnimals() {
+        List<Animal> animals = repository.findAll();
         Map<String, Object> response = new HashMap<>();
-        response.put("total", animais.size());
-        response.put("data", animais);
+        response.put("total", animals.size());
+        response.put("data", animals);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<Object> adicionar(@Valid @RequestBody Animal animal, BindingResult result) {
+    public ResponseEntity<Object> createAnAnimal(@Valid @RequestBody AnimalDTO animal, BindingResult result) {
         if (result.hasErrors()) {
             StringBuilder errors = new StringBuilder("Validation errors: ");
             for (ObjectError error : result.getAllErrors()) {
@@ -44,7 +44,8 @@ public class AnimalController {
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.toString());
         }
-        Animal salvo = repository.save(animal);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
+        var target = mapper.toModel(animal);
+        Animal persisted = repository.save(target);
+        return ResponseEntity.status(HttpStatus.CREATED).body(persisted);
     }
 }
