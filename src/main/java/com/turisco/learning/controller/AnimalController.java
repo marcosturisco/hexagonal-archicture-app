@@ -5,6 +5,8 @@ import com.turisco.learning.repository.AnimalRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,7 +17,7 @@ import java.util.Map;
 @RequestMapping("/animais")
 public class AnimalController {
 
-    private static final org.slf4j.Logger log
+    private static final org.slf4j.Logger LOGGER
             = org.slf4j.LoggerFactory.getLogger(AnimalController.class);
 
     private final AnimalRepository repository;
@@ -33,10 +35,15 @@ public class AnimalController {
         return ResponseEntity.ok(response);
     }
 
-
     @PostMapping
-    public ResponseEntity<Animal> adicionar(@Valid @RequestBody Animal animal) {
-        log.info(animal.toString());
+    public ResponseEntity<Object> adicionar(@Valid @RequestBody Animal animal, BindingResult result) {
+        if (result.hasErrors()) {
+            StringBuilder errors = new StringBuilder("Validation errors: ");
+            for (ObjectError error : result.getAllErrors()) {
+                errors.append(error.getDefaultMessage()).append(" ");
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.toString());
+        }
         Animal salvo = repository.save(animal);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }

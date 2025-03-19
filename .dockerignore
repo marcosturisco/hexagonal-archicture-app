@@ -1,0 +1,6 @@
+.idea
+.database
+.dockerignore
+.gitignore
+docker-compose-prod.yml
+pom.xml

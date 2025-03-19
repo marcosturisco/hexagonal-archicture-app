@@ -1,8 +1,13 @@
-FROM azul/zulu-openjdk:23
+FROM azul/zulu-openjdk:17 AS builder
 
 WORKDIR /app
 
-COPY init-db2.sh /init-db2.sh
 COPY target/hexagonal-architecture-app-1.0-SNAPSHOT.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar", "init-db2.sh"]
+FROM azul/zulu-openjdk-alpine:17
+
+WORKDIR /app
+
+COPY --from=builder /app .
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
