@@ -15,6 +15,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    private final SecurityProperties securityProperties;
+
+    public SecurityConfig(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -23,18 +29,16 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
-
         return http.build();
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("pass123"))
+                .username(securityProperties.getUser())
+                .password(passwordEncoder().encode(securityProperties.getPassword()))
                 .roles("USER")
                 .build();
-
         return new InMemoryUserDetailsManager(user);
     }
 
