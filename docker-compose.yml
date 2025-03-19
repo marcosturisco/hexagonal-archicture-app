@@ -6,7 +6,7 @@ services:
 
   proxy:
     build:
-      context: nginx
+      context: ./nginx
     image: dockermactur/nginx:hexa
     container_name: proxy
     restart: on-failure
@@ -14,6 +14,9 @@ services:
       - hexagonal
     ports:
       - "8080:8080"
+    environment:
+      - BASIC_AUTH_USER=user
+      - BASIC_AUTH_PASS=pass123
     depends_on:
       app:
         condition: service_healthy

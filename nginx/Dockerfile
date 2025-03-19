@@ -1,15 +1,17 @@
 FROM nginx:1.27.4-alpine
 
-# Delete the configuration default folder
+# Deleting the default configuration folder
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy the new configuration file into the conf image folder
+# Coping the files into the image
 COPY nginx.conf /etc/nginx/conf.d
+COPY entrypoint.sh /entrypoint.sh
 
-# Create a html folder and the empty js file in it
-#RUN mkdir /var/www/html -p && \
-#    touch /var/www/html/index.js
+# Installing the apache2-utils to use the command `htpasswd`
+RUN apk update && apk add --no-cache apache2-utils
 
-RUN apk update && \
-    apk add --no-cache apache2-utils && \
-    htpasswd -bc /etc/nginx/.htpasswd user pass123
+# Making the entrypoint file executable
+RUN chmod +x /entrypoint.sh
+
+# Defining the entry point to the container
+ENTRYPOINT ["/entrypoint.sh"]
