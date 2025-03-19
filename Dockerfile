@@ -10,4 +10,6 @@ WORKDIR /app
 
 COPY --from=builder /app .
 
+RUN apk add --no-cache curl
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
