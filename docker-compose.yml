@@ -13,7 +13,7 @@ services:
     networks:
       - hexagonal
     ports:
-      - "8080:8080"
+      - "8080:80"
     environment:
       - BASIC_AUTH_USER=user
       - BASIC_AUTH_PASS=pass123
