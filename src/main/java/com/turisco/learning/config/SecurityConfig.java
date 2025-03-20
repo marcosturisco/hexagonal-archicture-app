@@ -44,11 +44,16 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
-                .username(securityProperties.getUser())
-                .password(passwordEncoder().encode(securityProperties.getPassword()))
-                .roles("USER", "ADMIN")
+                .username(securityProperties.getUsers().get(0).getUsername())
+                .password(passwordEncoder().encode(securityProperties.getUsers().get(0).getPassword()))
+                .roles(securityProperties.getUsers().get(0).getRole())
                 .build();
-        return new InMemoryUserDetailsManager(user);
+        UserDetails admin = User.builder()
+                .username(securityProperties.getUsers().get(1).getUsername())
+                .password(passwordEncoder().encode(securityProperties.getUsers().get(1).getPassword()))
+                .roles(securityProperties.getUsers().get(1).getRole().split(","))
+                .build();
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
     @Bean

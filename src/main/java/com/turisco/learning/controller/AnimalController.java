@@ -29,7 +29,7 @@ public class AnimalController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> exposeAllAnimals() {
         List<Animal> animals = repository.findAll();
         Map<String, Object> response = new HashMap<>();
@@ -39,7 +39,7 @@ public class AnimalController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<Object> exposeCreateAnimal(@Valid @RequestBody AnimalDTO animal, BindingResult result) {
         if (result.hasErrors()) {
             Map<String, Object> errors = new HashMap<>();

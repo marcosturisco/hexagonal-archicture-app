@@ -17,6 +17,8 @@ services:
     environment:
       - BASIC_AUTH_USER=user
       - BASIC_AUTH_PASS=pass123
+      - ROOT_AUTH_USER=admin
+      - ROOT_AUTH_PASS=admin123
     depends_on:
       app:
         condition: service_healthy
