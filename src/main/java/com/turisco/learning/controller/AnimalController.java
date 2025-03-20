@@ -29,7 +29,7 @@ public class AnimalController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @RolesAllowed("USER")
     public ResponseEntity<Map<String, Object>> exposeAllAnimals() {
         List<Animal> animals = repository.findAll();
         Map<String, Object> response = new HashMap<>();
