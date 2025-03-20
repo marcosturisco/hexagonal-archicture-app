@@ -12,13 +12,4 @@ public class App {
         app.setAdditionalProfiles("prod");
         app.run(args);
     }
-//    @Bean
-//    public org.springframework.boot.CommandLineRunner runner(ApplicationContext ctx) {
-//        return args -> {
-//            System.out.println("Beans in context:");
-//            for (String beanName : ctx.getBeanDefinitionNames()) {
-//                System.out.println(beanName);
-//            }
-//        };
-//    }
 }

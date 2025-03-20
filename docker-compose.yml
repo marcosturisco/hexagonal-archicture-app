@@ -27,7 +27,7 @@ services:
     restart: on-failure
     tty: true
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/animals"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/diagnostic"]
       interval: 10s
       timeout: 10s
       retries: 3

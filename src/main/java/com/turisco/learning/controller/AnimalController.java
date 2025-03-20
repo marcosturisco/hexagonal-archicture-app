@@ -3,9 +3,11 @@ package com.turisco.learning.controller;
 import com.turisco.learning.dto.AnimalDTO;
 import com.turisco.learning.model.Animal;
 import com.turisco.learning.repository.AnimalRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,7 @@ public class AnimalController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Map<String, Object>> exposeAllAnimals() {
         List<Animal> animals = repository.findAll();
         Map<String, Object> response = new HashMap<>();
@@ -36,13 +39,14 @@ public class AnimalController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createAnAnimal(@Valid @RequestBody AnimalDTO animal, BindingResult result) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Object> exposeCreateAnimal(@Valid @RequestBody AnimalDTO animal, BindingResult result) {
         if (result.hasErrors()) {
-            StringBuilder errors = new StringBuilder("Validation errors: ");
+            Map<String, Object> errors = new HashMap<>();
             for (ObjectError error : result.getAllErrors()) {
-                errors.append(error.getDefaultMessage()).append(" ");
+                errors.put(error.getObjectName(), error.getDefaultMessage());
             }
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.toString());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         var target = mapper.toModel(animal);
         Animal persisted = repository.save(target);
