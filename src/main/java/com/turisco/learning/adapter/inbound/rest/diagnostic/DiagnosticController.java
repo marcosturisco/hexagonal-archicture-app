@@ -1,4 +1,4 @@
-package com.turisco.learning.controller;
+package com.turisco.learning.adapter.inbound.rest.diagnostic;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

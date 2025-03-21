@@ -1,5 +1,5 @@
 networks:
-  hexagonal:
+  zoonet:
     driver: bridge
 
 services:
@@ -7,11 +7,9 @@ services:
   proxy:
     build:
       context: ./nginx
-    image: dockermactur/nginx:hexa
+    image: dockermactur/nginx:zoo
     container_name: proxy
     restart: on-failure
-    networks:
-      - hexagonal
     ports:
       - "8080:80"
     environment:
@@ -22,10 +20,12 @@ services:
     depends_on:
       app:
         condition: service_healthy
+    networks:
+      - zoonet
 
   app:
-    image: dockermactur/spring:hexa
-    container_name: app_container
+    image: dockermactur/spring:zoo
+    container_name: app
     restart: on-failure
     tty: true
     healthcheck:
@@ -38,7 +38,7 @@ services:
       db:
         condition: service_healthy
     networks:
-      - hexagonal
+      - zoonet
 
   db:
     image: mysql:9.2.0
@@ -61,7 +61,7 @@ services:
       retries: 3
       start_period: 20s
     networks:
-      - hexagonal
+      - zoonet
 
 volumes:
   database:

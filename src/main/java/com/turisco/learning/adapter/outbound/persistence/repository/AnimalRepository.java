@@ -1,6 +1,6 @@
-package com.turisco.learning.repository;
+package com.turisco.learning.adapter.outbound.persistence.repository;
 
-import com.turisco.learning.model.Animal;
+import com.turisco.learning.adapter.outbound.persistence.entity.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
