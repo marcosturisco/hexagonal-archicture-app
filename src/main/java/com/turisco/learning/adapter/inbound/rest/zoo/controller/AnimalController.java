@@ -1,9 +1,8 @@
 package com.turisco.learning.adapter.inbound.rest.zoo.controller;
 
 import com.turisco.learning.adapter.inbound.rest.zoo.dto.AnimalDTO;
-import com.turisco.learning.adapter.inbound.rest.zoo.mapper.AnimalDTOMapper;
-import com.turisco.learning.domain.exception.InvalidAnimalException;
 import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
+import com.turisco.learning.domain.exception.InvalidAnimalException;
 import com.turisco.learning.domain.service.AnimalService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
@@ -25,7 +24,6 @@ import java.util.Map;
 @Slf4j
 public class AnimalController {
 
-    private final AnimalDTOMapper mapper;
     private final AnimalService service;
 
     @GetMapping
@@ -51,11 +49,11 @@ public class AnimalController {
         }
         try {
             AnimalAttributeInterface animal = service.create(animalDTO);
-            log.error("Animal Created Successfully!");
+            log.info("Animal Created Successfully!");
             return ResponseEntity.status(HttpStatus.CREATED).body(animal);
         } catch (InvalidAnimalException e) {
             log.error("Invalid Animal!");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Animal!");
     }
 }
