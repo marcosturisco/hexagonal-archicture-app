@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @Getter
@@ -20,5 +19,13 @@ public class SecurityProperties {
         private String username;
         private String password;
         private String role;
+    }
+
+    public UserProperties getUser() {
+        return users.get(0);
+    }
+
+    public UserProperties getAdmin() {
+        return users.get(1);
     }
 }

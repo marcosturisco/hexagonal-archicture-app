@@ -40,7 +40,8 @@ public class AnimalController {
 
     @PostMapping
     @RolesAllowed("ADMIN")
-    public ResponseEntity<Object> exposeCreateAnimal(@Valid @RequestBody AnimalDTO animalDTO, BindingResult result) {
+    public ResponseEntity<Object> exposeCreateAnimal(@Valid @RequestBody AnimalDTO animalDTO,
+                                                     BindingResult result) {
         if (result.hasErrors()) {
             Map<String, Object> errors = new HashMap<>();
             for (ObjectError error : result.getAllErrors()) {
