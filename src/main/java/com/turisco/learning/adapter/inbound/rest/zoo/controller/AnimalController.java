@@ -29,7 +29,7 @@ public class AnimalController {
     private final AnimalService service;
 
     @GetMapping
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER", "ADMIN"})
     public ResponseEntity<Map<String, Object>> exposeAllAnimals() {
         List<AnimalAttributeInterface> animals = service.findAll();
         Map<String, Object> response = new HashMap<>();
