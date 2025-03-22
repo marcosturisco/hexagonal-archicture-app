@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class App {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(App.class);
-        app.setAdditionalProfiles("dev");
+        app.setAdditionalProfiles("prod");
         app.run(args);
     }
 }
