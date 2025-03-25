@@ -14,10 +14,10 @@ import lombok.Setter;
 public class AnimalDTO {
     @NotBlank(message = "Name cannot be empty")
     private String name;
-    @NotBlank(message = "Species cannot be empty")
-    private String species;
     @NotNull(message = "Age cannot be empty")
     private Integer age;
+    @JsonIgnore
+    private String species;
     @JsonIgnore
     private AnimalStatus status;
 }

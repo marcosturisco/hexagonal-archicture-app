@@ -3,3 +3,4 @@
 /target/
 /database
 /spring-shell.log
+/src/main/resources/secret.env

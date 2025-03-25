@@ -16,10 +16,9 @@ public class AnimalShellCommands {
             value = "Creates an Animal executing the AnimalCommandLine.")
     public String createAnimalCommand(
             @ShellOption(help = "Name of the animal") String name,
-            @ShellOption(help = "Species of the animal") String species,
             @ShellOption(help = "Age of the animal") String age) {
         try {
-            animalCommandLine.run(name, species, age);
+            animalCommandLine.run(name, age);
             return "✅ CLI executed successfully!";
         } catch (Exception e) {
             throw new InvalidCommandException(e.getMessage());

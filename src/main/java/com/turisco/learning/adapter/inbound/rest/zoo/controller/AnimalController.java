@@ -4,6 +4,8 @@ import com.turisco.learning.adapter.inbound.rest.zoo.dto.AnimalDTO;
 import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
 import com.turisco.learning.domain.exception.InvalidAnimalException;
 import com.turisco.learning.domain.service.AnimalService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,15 +19,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/zoo")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Animal Administration", description = "Endpoints to work with Animal Registration")
 public class AnimalController {
 
     private final AnimalService service;
 
+    @Operation(summary = "List all animals", description = "Return a list of animals")
     @GetMapping
     @RolesAllowed({"USER", "ADMIN"})
     public ResponseEntity<Map<String, Object>> exposeAllAnimals() {
@@ -36,6 +41,7 @@ public class AnimalController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Create an animal", description = "Create an animal and classify the species by name")
     @PostMapping
     @RolesAllowed("ADMIN")
     public ResponseEntity<Object> exposeCreateAnimal(@Valid @RequestBody AnimalDTO animalDTO,
@@ -48,11 +54,15 @@ public class AnimalController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
         try {
+            service.generateSpeciesName(animalDTO);
             AnimalAttributeInterface animal = service.create(animalDTO);
             log.info("Animal Created Successfully!");
             return ResponseEntity.status(HttpStatus.CREATED).body(animal);
-        } catch (InvalidAnimalException e) {
+        } catch (InvalidAnimalException | ExecutionException e) {
             log.error("Invalid Animal!");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Species Classifier was Interrupted!");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Animal!");
     }
