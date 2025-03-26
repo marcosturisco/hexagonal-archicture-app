@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum NameReportEnum {
-    ANIMAL_REPORT("allAnimalsPersisted", "reports/hello_world.jasper");
+    ANIMAL_REPORT("allAnimalsPersisted", "reports/zoo_report.jasper");
 
     private final String nome;
     private final String path;
