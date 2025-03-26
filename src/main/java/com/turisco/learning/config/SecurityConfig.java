@@ -34,8 +34,8 @@ public class SecurityConfig {
                         .hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/zoo")
                         .hasRole("ADMIN")
-                        .requestMatchers("/diagnostic").permitAll()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/actuator/health").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
         return http.build();
