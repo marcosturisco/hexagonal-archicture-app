@@ -36,7 +36,7 @@ public class AnimalCommandLine implements CommandLineRunner {
                     .age(Integer.parseInt(args[1]))
                     .status(AnimalStatus.INACTIVE)
                     .build();
-            service.generateSpeciesName(animalDTO);
+            service.generateSpeciesName(animalDTO, true);
             log.info("🐾 Animal Created:");
             log.info("📛 Name: {}", animalDTO.getName());
             log.info("🦴 Species: {}", animalDTO.getSpecies());

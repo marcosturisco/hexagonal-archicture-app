@@ -58,12 +58,16 @@ public class AnimalService implements AnimalServiceInterface {
         return persistence.save(animal);
     }
 
-    public void generateSpeciesName(AnimalDTO dto) throws ExecutionException, InterruptedException {
-        var species = classifier.openAIResponseString(dto.getName())
-                .thenApply(result -> {
-                    log.info("Generated Species Names: {}", result);
-                    return result;
-                });
-        dto.setSpecies(species.get());
+    public void generateSpeciesName(AnimalDTO dto, boolean openAI) throws ExecutionException, InterruptedException {
+        var species =
+                openAI
+                        ? classifier
+                        .openAIResponseString(dto.getName())
+                        .thenApply(result -> {
+                            log.info("Generated Species Names: {}", result);
+                            return result;
+                        }).get()
+                        : "Species Name Test";
+        dto.setSpecies(species);
     }
 }
