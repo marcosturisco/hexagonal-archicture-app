@@ -13,5 +13,6 @@ The application was developed in collaboration with the zoo team and utilizes th
 - Integration with OpenAI API to retrieve the species names of animals.
 - Maven for dependency management and project build.
 - Docker to run the solution in a containerized environment, ensuring portability and easy deployment.
+- BDD tests using Cucumber Framework
 
 This project serves as a practical guide for integrating these technologies in a real-world development environment.
