@@ -17,8 +17,32 @@
     <url>http://maven.apache.org</url>
 
     <properties>
+        <java.jdk.version>17</java.jdk.version>
         <kotlin.version>2.1.0</kotlin.version>
+        <kotlinx.coroutines.core.version>1.10.1</kotlinx.coroutines.core.version>
+        <com.aallam.openai.version>3.8.0</com.aallam.openai.version>
+        <io.ktor.version>2.3.2</io.ktor.version>
+        <com.aallam.ktoken.version>0.4.0</com.aallam.ktoken.version>
         <datetime.version>0.4.0</datetime.version>
+        <org.lombok.version>1.18.36</org.lombok.version>
+        <org.springdoc.version>2.3.0</org.springdoc.version>
+        <org.springframework.shell.version>3.2.0</org.springframework.shell.version>
+        <org.jline.version>3.25.1</org.jline.version>
+        <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+        <org.mapstruct.version>1.6.3</org.mapstruct.version>
+        <commons.io.version>2.15.1</commons.io.version>
+        <org.slf4j.version>2.0.17</org.slf4j.version>
+        <com.h2database.version>2.3.232</com.h2database.version>
+        <mysql.connector.java.version>8.0.33</mysql.connector.java.version>
+        <net.sf.jasperreports.version>6.21.4</net.sf.jasperreports.version>
+        <com.itextpdf.version>5.5.13.4</com.itextpdf.version>
+        <net.java.dev.jna.version>5.13.0</net.java.dev.jna.version>
+        <cucumber.version>7.21.1</cucumber.version>
+        <surefire.plugin.version>3.5.2</surefire.plugin.version>
+        <org.junit.platform.version>1.12.1</org.junit.platform.version>
+        <org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
+        <jacoco.maven.plugin.version>0.8.12</jacoco.maven.plugin.version>
+        <cyclone.maven.plugin.version>1.4</cyclone.maven.plugin.version>
     </properties>
 
     <!--SPRING-->
@@ -26,16 +50,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!--SWAGGER-->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -56,37 +70,64 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>6.2.3</version>
         </dependency>
+        <!--SWAGGER-->
         <dependency>
-            <groupId>org.springframework.shell</groupId>
-            <artifactId>spring-shell-starter</artifactId>
-            <version>3.2.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jline</groupId>
-                    <artifactId>jline</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${org.springdoc.version}</version>
         </dependency>
+        <!--HEALTH CHECK-->
         <dependency>
-            <groupId>org.jline</groupId>
-            <artifactId>jline</artifactId>
-            <version>3.25.1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!--OTHERS-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.15.1</version>
+            <version>${commons.io.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.17</version>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+        <!--DATABASES-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${com.h2database.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector.java.version}</version>
+        </dependency>
+        <!--MAPSTRUCT-->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${org.mapstruct.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--LOMBOK-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${org.lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+            <version>${lombok.mapstruct.binding.version}</version>
         </dependency>
         <!--KOTLIN-->
         <dependency>
@@ -106,7 +147,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-coroutines-core</artifactId>
-            <version>1.10.1</version>
+            <version>${kotlinx.coroutines.core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -118,12 +159,12 @@
         <dependency>
             <groupId>com.aallam.openai</groupId>
             <artifactId>openai-client-jvm</artifactId>
-            <version>3.8.0</version>
+            <version>${com.aallam.openai.version}</version>
         </dependency>
         <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-client-okhttp-jvm</artifactId>
-            <version>2.3.2</version>
+            <version>${io.ktor.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -134,69 +175,30 @@
         <dependency>
             <groupId>com.aallam.ktoken</groupId>
             <artifactId>ktoken-jvm</artifactId>
-            <version>0.4.0</version>
-        </dependency>
-        <!--OTHERS-->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>2.3.232</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>1.6.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>1.6.3</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.36</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok-mapstruct-binding</artifactId>
-            <version>0.2.0</version>
+            <version>${com.aallam.ktoken.version}</version>
         </dependency>
         <!--JASPER REPORTS-->
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.21.4</version>
+            <version>${net.sf.jasperreports.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports-fonts</artifactId>
-            <version>6.21.4</version>
+            <version>${net.sf.jasperreports.version}</version>
         </dependency>
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>
-            <version>5.5.13.4</version>
+            <version>${com.itextpdf.version}</version>
         </dependency>
+
         <!--TESTS-->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.7.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.7.0</version>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-api</artifactId>
+            <version>${org.junit.platform.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -204,7 +206,39 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--CUCUMBER-->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>${net.java.dev.jna.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>${net.java.dev.jna.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -214,7 +248,7 @@
                 <executions>
                     <execution>
                         <id>compile</id>
-                        <phase>compile</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
@@ -234,58 +268,83 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>17</jvmTarget>
+                    <jvmTarget>${java.jdk.version}</jvmTarget>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>default-testCompile</id>
-                        <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>testCompile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <version>${org.apache.maven.plugins.version}</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>${java.jdk.version}</source>
+                    <target>${java.jdk.version}</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.36</version>
+                            <version>${org.lombok.version}</version>
                         </path>
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
-                            <version>1.6.3</version>
+                            <version>${org.mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${project.build.directory}/coverage-reports/jacoco.exec</destFile>
+                            <propertyName>surefireArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/coverage-reports/jacoco.exec</dataFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*IT.java</include>
+                        <include>**/*Cucumber*.java</include>
+                    </includes>
+                    <systemPropertyVariables>
+                        <spring.profiles.active>test</spring.profiles.active>
+                    </systemPropertyVariables>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar"
+                    </argLine>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>com.pro-crafting.tools</groupId>
                 <artifactId>jasperreports-plugin</artifactId>
@@ -316,6 +375,23 @@
                     <numberOfThreads>4</numberOfThreads>
                     <failOnMissingSourceDirectory>true</failOnMissingSourceDirectory>
                     <sourceScanner>org.codehaus.plexus.compiler.util.scan.StaleSourceScanner</sourceScanner>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <configuration>
+                    <projectType>application</projectType>
+                    <schemaVersion>${cyclone.maven.plugin.version}</schemaVersion>
+                    <includeBomSerialNumber>true</includeBomSerialNumber>
+                    <includeCompileScope>true</includeCompileScope>
+                    <includeProvidedScope>true</includeProvidedScope>
+                    <includeRuntimeScope>true</includeRuntimeScope>
+                    <includeSystemScope>true</includeSystemScope>
+                    <includeTestScope>false</includeTestScope>
+                    <includeLicenseText>false</includeLicenseText>
+                    <outputFormat>all</outputFormat>
                 </configuration>
             </plugin>
         </plugins>

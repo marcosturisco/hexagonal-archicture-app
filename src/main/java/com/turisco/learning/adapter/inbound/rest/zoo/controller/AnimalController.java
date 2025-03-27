@@ -29,8 +29,8 @@ import static com.turisco.learning.adapter.outbound.report.enums.NameReportEnum.
 @RestController
 @RequestMapping("/zoo")
 @RequiredArgsConstructor
-@Slf4j
 @Tag(name = "Animal Administration", description = "Endpoints to work with Animal Registration")
+@Slf4j
 public class AnimalController {
 
     private final AnimalService service;
@@ -49,7 +49,7 @@ public class AnimalController {
 
     @Operation(summary = "Report all animals", description = "Return a report of animals")
     @GetMapping("/report")
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed("ADMIN")
     public ResponseEntity<byte[]> exposeReportAnimals() {
         List<AnimalAttributeInterface> animals = service.findAll();
         var conf = ReportConf.builder().nameReportEnum(ANIMAL_REPORT).mediaType(PDF).build();
