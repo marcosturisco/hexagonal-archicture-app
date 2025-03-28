@@ -1,0 +1,33 @@
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui
+    tags-sorter: alpha
+    operations-sorter: alpha
+    tryItOutEnabled: true
+
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    org:
+      springframework: INFO
+      springframework.security: INFO
+
+app:
+  security:
+    users:
+      - username: user
+        password: pass123
+        role: USER
+      - username: admin
+        password: admin123
+        role: USER,ADMIN
