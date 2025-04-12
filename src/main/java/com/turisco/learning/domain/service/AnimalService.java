@@ -11,6 +11,8 @@ import com.turisco.learning.domain.model.AnimalActionInterface;
 import com.turisco.learning.domain.service.factory.AnimalFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,6 +39,11 @@ public class AnimalService implements AnimalServiceInterface {
     }
 
     @Override
+    public Page<AnimalAttributeInterface> findAll(Pageable pageable) {
+        return persistence.findAll(pageable);
+    }
+
+    @Override
     public AnimalAttributeInterface create(AnimalDTO animalDTO) throws InvalidAnimalException {
         AnimalAttributeInterface attribute = animalFactory.create(animalDTO);
         Animal action = entityMapper.toAction(attribute);
@@ -44,6 +51,12 @@ public class AnimalService implements AnimalServiceInterface {
             throw new InvalidAnimalException("Invalid animal data");
         }
         return persistence.save(action);
+    }
+
+    @Override
+    public void delete(AnimalDTO animalDTO) {
+        AnimalAttributeInterface attribute = animalFactory.delete(animalDTO);
+        persistence.delete(attribute);
     }
 
     @Override

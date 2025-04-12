@@ -18,4 +18,9 @@ public class DefaultAnimalFactory implements AnimalFactory {
     public AnimalAttributeInterface create(AnimalDTO animalDTO) {
         return mapper.dtoToEntity(animalDTO);
     }
+
+    @Override
+    public AnimalAttributeInterface delete(AnimalDTO animalDTO) {
+        return mapper.dtoToEntity(animalDTO);
+    }
 }

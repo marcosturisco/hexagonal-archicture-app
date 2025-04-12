@@ -5,4 +5,6 @@ import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeI
 
 public interface AnimalFactory {
     AnimalAttributeInterface create(AnimalDTO animalDTO);
+
+    AnimalAttributeInterface delete(AnimalDTO animalDTO);
 }

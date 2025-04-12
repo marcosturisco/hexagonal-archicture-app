@@ -16,3 +16,6 @@ The application was developed in collaboration with the zoo team and utilizes th
 - BDD tests using Cucumber Framework
 
 This project serves as a practical guide for integrating these technologies in a real-world development environment.
+
+$ docker build -t dockermactur/spring:zoo .; docker build -t dockermactur/nginx:zoo nginx/.
+$ docker compose --env-file .env up --build

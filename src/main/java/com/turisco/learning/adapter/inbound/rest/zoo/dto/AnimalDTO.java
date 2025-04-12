@@ -12,12 +12,13 @@ import lombok.Setter;
 @Setter
 @Builder
 public class AnimalDTO {
+    @JsonIgnore
+    private Long id;
     @NotBlank(message = "Name cannot be empty")
     private String name;
+    private String species;
     @NotNull(message = "Age cannot be empty")
     private Integer age;
-    @JsonIgnore
-    private String species;
     @JsonIgnore
     private AnimalStatus status;
 }

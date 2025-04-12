@@ -2,10 +2,13 @@ package com.turisco.learning.adapter.outbound.persistence.repository;
 
 import com.turisco.learning.adapter.inbound.rest.zoo.mapper.AnimalDTOMapper;
 import com.turisco.learning.adapter.outbound.persistence.entity.Animal;
+import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
 import com.turisco.learning.adapter.outbound.persistence.mapper.AnimalEntityMapper;
 import com.turisco.learning.domain.model.AnimalActionInterface;
-import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,8 +34,20 @@ public class AnimalPersistenceAdapter implements AnimalPersistenceInterface {
     }
 
     @Override
+    public Page<AnimalAttributeInterface> findAll(Pageable pageable) {
+        var pagedList = repository.findAll(pageable);
+        var attList = entityMapper.entityListToAttributeList(pagedList.getContent());
+        return new PageImpl<>(attList, pageable, pagedList.getTotalElements());
+    }
+
+    @Override
     public AnimalAttributeInterface save(AnimalActionInterface animal) {
         Animal animalEntity = dtoMapper.actionToEntity(animal);
         return repository.save(animalEntity);
+    }
+
+    @Override
+    public void delete(AnimalAttributeInterface animal) {
+        repository.delete((Animal) animal);
     }
 }

@@ -2,4 +2,4 @@
 /.idea/
 /target/
 /database
-/src/main/resources/secret.env
+/.env
