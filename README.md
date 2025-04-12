@@ -1,19 +1,29 @@
 This project demonstrates the implementation of a system using various technologies to efficiently deliver features to the user while following best software development practices.
-The application was developed in collaboration with the zoo team and utilizes the following technologies:
+The application was developed in collaboration with the zoo team and leverages the following technologies and features:
 
-- Spring Boot for building the backend application.
-- Spring Security for user authentication and authorization.
-- Spring MVC for developing RESTful APIs.
-- Nginx as a Reverse Proxy for load balancing and security.
-- MySQL as a relational database for data storage.
-- Spring Boot Actuator for monitoring and health checks of the application.
-- Ports and Adapter (Hexagonal) Architecture and DDD concepts for modularity and system scalability.
-- Swagger API for endpoint documentation and testing.
-- iReports API for exporting database data into customized reports.
-- Integration with OpenAI API to retrieve the species names of animals.
-- Maven for dependency management and project build.
-- Docker to run the solution in a containerized environment, ensuring portability and easy deployment.
-- BDD tests using Cucumber Framework
+🚀 Technologies & Features:
+
+# Spring Boot for building the backend application.
+# Spring Security for user authentication and authorization.
+# Spring MVC for developing RESTful APIs.
+# Spring HATEOAS implemented to achieve Level 3 of the REST Maturity Model, enabling hypermedia-driven navigation between resources.
+
+# New API Endpoints:
+# DELETE endpoint for removing animals.
+# Paginated listing with support for dynamic sorting.
+# Custom exception handling, such as a specific error response for failed animal creation.
+
+# BDD testing using the Cucumber Framework, with a refined suite of behavioral test scenarios.
+# Swagger (Springdoc OpenAPI) for API documentation and testing.
+# Spring Boot Actuator for application monitoring and health checks.
+# Nginx as a reverse proxy, providing load balancing and added security.
+# MySQL as a relational database for persistent data storage.
+# Hexagonal Architecture (Ports and Adapters) combined with DDD principles to ensure modularity, flexibility, and scalability.
+# iReports API for exporting database data into customized reports.
+# Integration with OpenAI API to retrieve animal species names based on descriptive input.
+# Maven for project build and dependency management.
+# Docker for containerizing the solution, ensuring portability and ease of deployment.
+# .env file support, allowing secure and flexible environment variable configuration for Docker environments.
 
 This project serves as a practical guide for integrating these technologies in a real-world development environment.
 
