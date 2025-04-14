@@ -1,5 +1,5 @@
 This project demonstrates the implementation of a system using various technologies to efficiently deliver features to the user while following best software development practices.
-The application was developed in collaboration with the zoo team and leverages the following technologies and features:
+The application was developed over the following technologies and features:
 
 🚀 Technologies & Features:
 
