@@ -1,3 +1,15 @@
+#ENABLING THE SSL PROTOCOL
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: ${KEY_STORE_PASSWORD}
+    key-store-type: PKCS12
+    key-alias: ${KEY_ALIAS}
+  http2:
+    enabled: true
+
 # MYSQL DATABASE
 spring:
   datasource:

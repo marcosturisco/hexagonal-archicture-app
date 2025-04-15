@@ -32,6 +32,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/zoo").authenticated()
                         .requestMatchers(HttpMethod.POST, "/zoo").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/graphiql").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/graphql").authenticated()
                         .requestMatchers("/actuator/health").permitAll()
                         .anyRequest().authenticated()
                 )

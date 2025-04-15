@@ -4,3 +4,5 @@
 .gitignore
 docker-compose-prod.yml
 pom.xml
+src/main/resources/certificate.crt
+src/main/resources/keystore.p12

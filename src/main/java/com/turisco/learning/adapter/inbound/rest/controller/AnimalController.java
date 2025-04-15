@@ -1,6 +1,6 @@
-package com.turisco.learning.adapter.inbound.rest.zoo.controller;
+package com.turisco.learning.adapter.inbound.rest.controller;
 
-import com.turisco.learning.adapter.inbound.rest.zoo.dto.AnimalDTO;
+import com.turisco.learning.adapter.inbound.rest.dto.AnimalDTO;
 import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
 import com.turisco.learning.adapter.outbound.report.ReportService;
 import com.turisco.learning.adapter.outbound.report.conf.ReportConf;

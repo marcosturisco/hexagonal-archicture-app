@@ -13,10 +13,10 @@ services:
     ports:
       - "8080:80"
     environment:
-      - BASIC_AUTH_USER=user
-      - BASIC_AUTH_PASS=pass123
-      - ROOT_AUTH_USER=admin
-      - ROOT_AUTH_PASS=admin123
+      - BASIC_AUTH_USER=${BASIC_AUTH_USER}
+      - BASIC_AUTH_PASS=${BASIC_AUTH_PASS}
+      - ROOT_AUTH_USER=${ROOT_AUTH_USER}
+      - ROOT_AUTH_PASS=${ROOT_AUTH_PASS}
     depends_on:
       app:
         condition: service_healthy
@@ -30,8 +30,14 @@ services:
     tty: true
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - KEY_STORE_PASSWORD=${KEY_STORE_PASSWORD}
+      - KEY_ALIAS=${KEY_ALIAS}
+      - BASIC_AUTH_USER=${BASIC_AUTH_USER}
+      - BASIC_AUTH_PASS=${BASIC_AUTH_PASS}
+      - ROOT_AUTH_USER=${ROOT_AUTH_USER}
+      - ROOT_AUTH_PASS=${ROOT_AUTH_PASS}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "curl", "-k", "-f", "https://localhost:8443/actuator/health"]
       interval: 10s
       timeout: 10s
       retries: 3
@@ -53,7 +59,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=zoo
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
     ports:
       - "3306:3306"
     healthcheck:

@@ -1,6 +1,6 @@
-package com.turisco.learning.adapter.inbound.rest.zoo.mapper;
+package com.turisco.learning.adapter.inbound.rest.mapper;
 
-import com.turisco.learning.adapter.inbound.rest.zoo.dto.AnimalDTO;
+import com.turisco.learning.adapter.inbound.rest.dto.AnimalDTO;
 import com.turisco.learning.adapter.outbound.persistence.enums.AnimalStatus;
 import com.turisco.learning.config.MapStructConfig;
 import com.turisco.learning.domain.model.Animal;

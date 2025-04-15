@@ -3,3 +3,6 @@
 /target/
 /database
 /.env
+/src/main/resources/certificate.crt
+/src/main/resources/private.key
+/src/main/resources/keystore.p12

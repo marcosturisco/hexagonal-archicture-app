@@ -27,5 +27,16 @@ The application was developed in collaboration with the zoo team and leverages t
 
 This project serves as a practical guide for integrating these technologies in a real-world development environment.
 
-$ docker build -t dockermactur/spring:zoo .; docker build -t dockermactur/nginx:zoo nginx/.
+$ docker build -t dockermactur/spring:zoo . ; docker build -t dockermactur/nginx:zoo nginx/.
 $ docker compose --env-file .env up --build
+# To generate de keystore file (Execute replacing the need parameters and execute on bash terminal)
+$ keytool -genkeypair -alias your-key-alias \
+$ -keyalg RSA -keysize 2048 \
+$ -storetype PKCS12 \
+$ -keystore keystore.p12 \
+$ -validity 3650 \
+$ -storepass your-password
+
+# To generate the .crt and .key file for access HTTP2 SSL Protocol Test
+$ openssl pkcs12 -in keystore.p12 -clcerts -nokeys -out certificate.crt
+$ openssl pkcs12 -in keystore.p12 -nocerts -nodes -out private.key

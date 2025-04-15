@@ -1,6 +1,6 @@
 package com.turisco.learning.exception;
 
-import com.turisco.learning.adapter.inbound.rest.zoo.dto.AnimalDTO;
+import com.turisco.learning.adapter.inbound.rest.dto.AnimalDTO;
 
 public class CreateAnimalException extends RuntimeException {
     public CreateAnimalException(AnimalDTO animalDTO) {

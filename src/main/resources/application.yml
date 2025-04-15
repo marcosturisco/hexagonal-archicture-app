@@ -15,6 +15,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  graphql:
+    graphiql:
+      enabled: true
 
 logging:
   level:
@@ -25,9 +28,9 @@ logging:
 app:
   security:
     users:
-      - username: user
-        password: pass123
+      - username: ${BASIC_AUTH_USER}
+        password: ${BASIC_AUTH_PASS}
         role: USER
-      - username: admin
-        password: admin123
+      - username: ${ROOT_AUTH_USER}
+        password: ${ROOT_AUTH_PASS}
         role: USER,ADMIN

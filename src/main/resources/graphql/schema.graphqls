@@ -1,0 +1,16 @@
+type Animal {
+    id: ID!
+    name: String!
+    species: String!
+    age: Int!
+    status: String
+}
+
+type Query {
+    animals: [Animal!]!
+    animalById(id: ID!): Animal
+}
+
+type Mutation {
+    createAnimal(name: String!, species: String!, age: Int!): Animal
+}

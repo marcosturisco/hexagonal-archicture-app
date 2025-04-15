@@ -1,4 +1,4 @@
-package com.turisco.learning.adapter.inbound.rest.zoo.dto;
+package com.turisco.learning.adapter.inbound.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.turisco.learning.adapter.outbound.persistence.enums.AnimalStatus;

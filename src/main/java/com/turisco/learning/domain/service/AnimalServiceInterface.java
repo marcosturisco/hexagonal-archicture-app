@@ -1,6 +1,6 @@
 package com.turisco.learning.domain.service;
 
-import com.turisco.learning.adapter.inbound.rest.zoo.dto.AnimalDTO;
+import com.turisco.learning.adapter.inbound.rest.dto.AnimalDTO;
 import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
 import com.turisco.learning.domain.exception.InvalidAnimalException;
 import com.turisco.learning.domain.exception.InvalidSpeciesException;

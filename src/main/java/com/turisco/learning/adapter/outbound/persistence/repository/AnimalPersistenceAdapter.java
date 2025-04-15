@@ -1,6 +1,6 @@
 package com.turisco.learning.adapter.outbound.persistence.repository;
 
-import com.turisco.learning.adapter.inbound.rest.zoo.mapper.AnimalDTOMapper;
+import com.turisco.learning.adapter.inbound.rest.mapper.AnimalDTOMapper;
 import com.turisco.learning.adapter.outbound.persistence.entity.Animal;
 import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
 import com.turisco.learning.adapter.outbound.persistence.mapper.AnimalEntityMapper;
