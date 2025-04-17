@@ -1,6 +1,7 @@
 package com.turisco.learning.adapter.inbound.rest.controller;
 
 import com.turisco.learning.adapter.inbound.rest.dto.AnimalDTO;
+import com.turisco.learning.adapter.inbound.rest.enumeration.HTTPStatus;
 import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
 import com.turisco.learning.adapter.outbound.report.ReportService;
 import com.turisco.learning.adapter.outbound.report.conf.ReportConf;
@@ -52,13 +53,17 @@ public class AnimalController {
 
         List<EntityModel<AnimalAttributeInterface>> animalModels = animals.stream()
                 .map(animal -> EntityModel.of(animal,
-                        linkTo(methodOn(AnimalController.class).exposeAnimal(animal.getId())).withSelfRel()
+                        linkTo(methodOn(AnimalController.class).exposeAnimal(animal.getId()))
+                                .withSelfRel()
+                                .withType(HTTPStatus.GET.name())
                 ))
                 .toList();
 
         CollectionModel<EntityModel<AnimalAttributeInterface>> collectionModel = CollectionModel.of(animalModels,
-                linkTo(methodOn(AnimalController.class).exposeAllAnimals()).withSelfRel(),
+                linkTo(methodOn(AnimalController.class).exposeAllAnimals()).withSelfRel()
+                        .withType(HTTPStatus.GET.name()),
                 linkTo(methodOn(AnimalController.class).exposeReportAnimals()).withRel("report-animals")
+                        .withType(HTTPStatus.GET.name())
         );
 
         return ResponseEntity.ok(collectionModel);
@@ -75,7 +80,9 @@ public class AnimalController {
         PagedModel<EntityModel<AnimalAttributeInterface>> pagedModel =
                 pagedResourcesAssembler.toModel(page, animal ->
                         EntityModel.of(animal,
-                                linkTo(methodOn(AnimalController.class).exposeAnimal(animal.getId())).withSelfRel()
+                                linkTo(methodOn(AnimalController.class).exposeAnimal(animal.getId()))
+                                        .withSelfRel()
+                                        .withType(HTTPStatus.GET.name())
                         )
                 );
         return ResponseEntity.ok(pagedModel);
@@ -100,13 +107,17 @@ public class AnimalController {
             AnimalAttributeInterface animal = service.create(animalDTO);
             log.info("Animal Created Successfully!");
 
-            var hateos = EntityModel.of(animal,
-                    linkTo(methodOn(AnimalController.class).exposeAnimal(animal.getId())).withSelfRel(),
-                    linkTo(methodOn(AnimalController.class).exposeAllAnimals()).withRel("all-animals")
+            var hateoas = EntityModel.of(animal,
+                    linkTo(methodOn(AnimalController.class).exposeAnimal(animal.getId()))
+                            .withSelfRel()
+                            .withType(HTTPStatus.GET.name()),
+                    linkTo(methodOn(AnimalController.class).exposeAllAnimals())
+                            .withRel("all-animals")
+                            .withType(HTTPStatus.GET.name())
             );
             return ResponseEntity
                     .created(linkTo(methodOn(AnimalController.class).exposeAnimal(animal.getId())).toUri())
-                    .body(hateos);
+                    .body(hateoas);
         } catch (InvalidAnimalException | ExecutionException e) {
             log.error("Invalid Animal!");
             throw new CreateAnimalException(animalDTO);

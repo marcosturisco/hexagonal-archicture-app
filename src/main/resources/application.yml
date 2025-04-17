@@ -8,6 +8,7 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: alpha
     tryItOutEnabled: true
+    validatorUrl: null
 
 spring:
   jpa:

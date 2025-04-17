@@ -14,3 +14,7 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+springdoc:
+  swagger-ui:
+    url: http://localhost:8081/api-docs

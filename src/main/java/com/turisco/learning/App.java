@@ -13,7 +13,7 @@ public class App {
         dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
 
         SpringApplication app = new SpringApplication(App.class);
-        app.setAdditionalProfiles("dev");
+        app.setAdditionalProfiles("prod");
         app.run(args);
     }
 }
