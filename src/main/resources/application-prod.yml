@@ -1,6 +1,7 @@
 #ENABLING THE SSL PROTOCOL
 server:
   port: 8443
+  forward-headers-strategy: framework
   http2:
     enabled: true
   ssl:
