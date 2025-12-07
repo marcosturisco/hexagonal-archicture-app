@@ -115,7 +115,7 @@ public class AnimalController {
     public ResponseEntity<EntityModel<AnimalAttributeInterface>> exposeCreateAnimal(
             @Valid @RequestBody AnimalDTO animalDTO) {
         try {
-            service.generateSpeciesName(animalDTO, false);
+            service.generateSpeciesName(animalDTO);
             AnimalAttributeInterface animal = service.create(animalDTO);
             log.info("Animal Created Successfully!");
 

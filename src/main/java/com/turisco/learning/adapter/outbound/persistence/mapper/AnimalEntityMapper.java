@@ -5,6 +5,7 @@ import com.turisco.learning.adapter.outbound.persistence.entity.Animal;
 import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
 import com.turisco.learning.config.MapStructConfig;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -18,5 +19,6 @@ public interface AnimalEntityMapper {
 
     Animal dtoToEntity(AnimalDTO dto);
 
+    @Mapping(target = "classifiedSpecies", ignore = true)
     AnimalDTO entityToDto(AnimalAttributeInterface dto);
 }

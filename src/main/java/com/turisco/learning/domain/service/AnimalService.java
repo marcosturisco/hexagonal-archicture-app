@@ -71,9 +71,9 @@ public class AnimalService implements AnimalServiceInterface {
         return persistence.save(animal);
     }
 
-    public void generateSpeciesName(AnimalDTO dto, boolean openAI) throws ExecutionException, InterruptedException {
+    public void generateSpeciesName(AnimalDTO dto) throws ExecutionException, InterruptedException {
         var species =
-                openAI
+                dto.isClassifiedSpecies()
                         ? classifier
                         .openAIResponseString(dto.getName())
                         .thenApply(result -> {

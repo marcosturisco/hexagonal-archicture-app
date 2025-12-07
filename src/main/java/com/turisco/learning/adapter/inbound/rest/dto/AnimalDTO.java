@@ -17,8 +17,13 @@ public class AnimalDTO {
     @NotBlank(message = "Name cannot be empty")
     private String name;
     private String species;
+    private boolean classifiedSpecies;
     @NotNull(message = "Age cannot be empty")
     private Integer age;
     @JsonIgnore
     private AnimalStatus status;
+
+    public AnimalStatus getStatus() {
+        return this.classifiedSpecies ? AnimalStatus.ACTIVE : AnimalStatus.INACTIVE;
+    }
 }
