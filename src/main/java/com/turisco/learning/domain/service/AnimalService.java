@@ -80,7 +80,7 @@ public class AnimalService implements AnimalServiceInterface {
                             log.info("Generated Species Names: {}", result);
                             return result;
                         }).get()
-                        : "Species Name Test";
+                        : "No Classified Species";
         dto.setSpecies(species);
     }
 }
