@@ -3,8 +3,10 @@ package com.turisco.learning.adapter.inbound.rest.controller;
 import com.turisco.learning.adapter.inbound.rest.dto.AnimalDTO;
 import com.turisco.learning.adapter.inbound.rest.enumeration.HTTPStatus;
 import com.turisco.learning.adapter.outbound.persistence.entity.AnimalAttributeInterface;
-import com.turisco.learning.adapter.outbound.report.ReportService;
 import com.turisco.learning.adapter.outbound.report.conf.ReportConf;
+import com.turisco.learning.adapter.outbound.report.dto.ReportDto;
+import com.turisco.learning.adapter.outbound.report.enums.MediaTypeEnum;
+import com.turisco.learning.adapter.outbound.report.main.ReportService;
 import com.turisco.learning.domain.exception.InvalidAnimalException;
 import com.turisco.learning.domain.service.AnimalService;
 import com.turisco.learning.exception.CreateAnimalException;
@@ -22,6 +24,8 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import static com.turisco.learning.adapter.outbound.report.enums.MediaTypeEnum.PDF;
 import static com.turisco.learning.adapter.outbound.report.enums.NameReportEnum.ANIMAL_REPORT;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -41,8 +44,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Tag(name = "Animal Administration", description = "Endpoints to work with Animal Registration")
 public class AnimalController {
 
-    private final AnimalService service;
     private final ReportService report;
+    private final AnimalService service;
     private final PagedResourcesAssembler<AnimalAttributeInterface> pagedResourcesAssembler;
 
     @GetMapping("/all")
@@ -62,7 +65,9 @@ public class AnimalController {
         CollectionModel<EntityModel<AnimalAttributeInterface>> collectionModel = CollectionModel.of(animalModels,
                 linkTo(methodOn(AnimalController.class).exposeAllAnimals()).withSelfRel()
                         .withType(HTTPStatus.GET.name()),
-                linkTo(methodOn(AnimalController.class).exposeReportAnimals()).withRel("report-animals")
+                linkTo(methodOn(AnimalController.class).exposeReportAnimals(
+                        ReportDto.builder().mediaType(MediaTypeEnum.PDF).build()
+                )).withRel("report-animals")
                         .withType(HTTPStatus.GET.name())
         );
 
@@ -88,13 +93,20 @@ public class AnimalController {
         return ResponseEntity.ok(pagedModel);
     }
 
-    @GetMapping("/report")
     @RolesAllowed("ADMIN")
+    @PostMapping("/report")
     @Operation(summary = "Report all animals", description = "Return a report of animals")
-    public ResponseEntity<byte[]> exposeReportAnimals() {
-        List<AnimalAttributeInterface> animals = service.findAll();
-        var conf = ReportConf.builder().nameReportEnum(ANIMAL_REPORT).mediaType(PDF).build();
-        return report.getPdfResponse(conf, Map.of(), animals);
+    public ResponseEntity<byte[]> exposeReportAnimals(@RequestBody ReportDto dto) {
+        List<AnimalAttributeInterface> result = service.findAll();
+        ReportConf conf = ReportConf.builder()
+                .nameReportEnum(ANIMAL_REPORT)
+                .mediaType(dto.getMediaType())
+                .build();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, conf.getContentDisposition());
+        headers.add(HttpHeaders.CONTENT_TYPE, conf.getContentType());
+        byte[] bytes = report.export(conf, Map.of(), result);
+        return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
     }
 
     @PostMapping
